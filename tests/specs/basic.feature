@@ -3,5 +3,7 @@ Feature: basic api
   I write the following tests
 
   Scenario Outline: parsing rss
-    Given I have <address> 
-    Then result class should be <RSS::Rss>
+    Given I have valid <address> 
+    Then return class must be <RSS::Rss>
+
+
