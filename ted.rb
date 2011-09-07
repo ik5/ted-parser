@@ -24,7 +24,55 @@ begin
   require 'rss/2.0'
   require 'open-uri'
 rescue
-  $stderr.puts "Unable to load modules. Please make sure that you have rubygems installed."
+  $stderr.puts 'Unable to load modules. Please make sure that you have rubygems installed.'
   exit
+end
+
+RSS_ADDRESS = 'http://feeds.feedburner.com/tedtalks_video'
+
+# parsed_xml return parsed RSS content into ruby structure
+#
+# Params:
+# address - is the rss address for TED.com Default is RSS_ADDRESS
+#
+# Return:
+#  The parsed rss or nil, if exception was raised
+#
+def parsed_xml(address = RSS_ADDRESS)
+  content = open(address).read
+  RSS::Parser.parse(content, false)
+rescue => e
+  $stderr.puts "Unable to parse RSS: #{e.message}"
+  nil
+end
+
+# download return the content of a file
+#
+# Params:
+#  url - The url to download from
+#  type - The type of file to download:
+#           :highres    - The high resulotion vido (default)
+#           :desktopmp4 - The desktop version video 
+#           :desktopmp3 - The desktop version audio only
+#           :itunesmp4  - The itunes version video
+#           :itunesmp3  - The itunes version audio only
+#           :lowres     - The low resulotion video
+#
+# Returns:
+#   Content of the file, or nil if error
+#
+def download(url, type = :highres)
+  # TODO
+end
+
+# 
+def save(content, path)
+end
+
+#
+def exec(rss)
+end
+
+def remember_download(url, type = :highres)
 end
 
