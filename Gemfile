@@ -6,3 +6,8 @@ gem 'nokogiri'
 group :testing do
   gem 'cucumber'
 end
+
+group :dev do
+  gem 'pry'
+  gem 'pry_debug'
+end
