@@ -30,49 +30,72 @@ end
 
 RSS_ADDRESS = 'http://feeds.feedburner.com/tedtalks_video'
 
-# parsed_xml return parsed RSS content into ruby structure
-#
-# Params:
-# address - is the rss address for TED.com Default is RSS_ADDRESS
-#
-# Return:
-#  The parsed rss or nil, if exception was raised
-#
-def parsed_xml(address = RSS_ADDRESS)
-  content = open(address).read
-  RSS::Parser.parse(content, false)
-rescue => e
-  $stderr.puts "Unable to parse RSS: #{e.message}"
-  nil
+
+module TedAPI
+  class API
+   def initialize(address = RSS_ADDRESS)
+     @address = address
+   end 
+   
+   # parsed_xml return parsed RSS content into ruby structure
+   #
+   # Params:
+   # address - is the rss address for TED.com Default is RSS_ADDRESS
+   #
+   # Return:
+   #  The parsed rss or nil, if exception was raised
+   #
+   def parsed_xml
+     content = open(@address).read
+     @rss = RSS::Parser.parse(content, false)
+   rescue => e
+     $stderr.puts "Unable to parse RSS: #{e.message}"
+     nil
+   end
+
+   # 
+   #
+   #
+   #
+   #
+   def get_urls
+    # TODO 
+   end  
+ 
+   # download return the content of a file
+   #
+   # Params:
+   #  url - The url to download from
+   #  type - The type of file to download:
+   #           :highres    - The high resulotion vido (default)
+   #           :desktopmp4 - The desktop version video 
+   #           :desktopmp3 - The desktop version audio only
+   #           :lowres     - The low resulotion video
+   # Note:
+   #  iTunes not supported at the moment
+   #
+   # Returns:
+   #   Content of the file, or nil if error
+   #
+   def download(url, type = :highres)
+     # TODO
+   end
+   
+   # 
+   def save(content, path)
+    # TODO
+   end
+   
+   #
+   def exec(rss)
+    # TODO
+   end
+   
+   def remember_download(url, type = :highres)
+    # TODO
+   end
+
+  end
 end
 
-# download return the content of a file
-#
-# Params:
-#  url - The url to download from
-#  type - The type of file to download:
-#           :highres    - The high resulotion vido (default)
-#           :desktopmp4 - The desktop version video 
-#           :desktopmp3 - The desktop version audio only
-#           :itunesmp4  - The itunes version video
-#           :itunesmp3  - The itunes version audio only
-#           :lowres     - The low resulotion video
-#
-# Returns:
-#   Content of the file, or nil if error
-#
-def download(url, type = :highres)
-  # TODO
-end
-
-# 
-def save(content, path)
-end
-
-#
-def exec(rss)
-end
-
-def remember_download(url, type = :highres)
-end
 
