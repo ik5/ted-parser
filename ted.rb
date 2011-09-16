@@ -166,6 +166,7 @@ module TedAPI
    #
    def remember_download(url, type = :highres)
      # First we make sure that we have the config directory ...
+     # TODO: Add security checks for path and file
      path = File.expand_path CONFIG_PATH
      FileUtils.mkdir_p(path) unless File.directory?(path)
 
