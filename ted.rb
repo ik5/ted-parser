@@ -46,8 +46,7 @@ module TedAPI
    #  The parsed rss or nil, if exception was raised
    #
    def parsed_xml
-     content = open(@address).read
-     @rss = RSS::Parser.parse(content, false)
+     @rss = RSS::Parser.parse(open(@address), false)
    rescue => e
      $stderr.puts "Unable to parse RSS: #{e.message}"
      nil
