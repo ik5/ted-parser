@@ -52,20 +52,19 @@ module TedAPI
      nil
    end
 
-   # get_urls parse the rss and return only the urls to be used using also their
-   # titles
+   # get_urls parse the rss and return only the urls to be used 
    #
    # Return:
-   #   Hash with title as key and url as value
+   #   arrays with url's
    #   Or nil if something is wrong
    #
    def get_urls
      return nil unless @rss 
      
-     result = {}
+     result = []
 
      @rss.channel.items.each do |item| 
-       result[item.title] = item.enclosure.url
+       result << item.enclosure.url
      end
 
      # make sure we return result and not rss ...
