@@ -99,6 +99,7 @@ module TedAPI
        when :desktopmp3 : '.mp3'
        when :highres    : '-480p.mp4'
        when :lowres     : '-light.mp4'
+       else               return false # can't download unknown type ...
      end
     
      # set the next extention without removing the content of url
