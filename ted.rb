@@ -88,7 +88,7 @@ module TedAPI
    #  iTunes not supported at the moment
    #
    # Returns:
-   #   Content of the file, or nil if error
+   #   true if successful, or false if not
    #
    def download(url, path, type = :highres)
      # TODO - security checks for path
@@ -112,10 +112,18 @@ module TedAPI
 
      # let's download the content and save it to a file
      require 'net/http'
-     
+     Net::HTTP.start(uri.host) do |http|
+       answer = http.get(uri.path)
+       open(path + fname, 'wb') do |f|
+         write(answer.body)
+       end
+     end
+
+     # should return true or false
+     (answer == 200) && (File.exists?(path + fname))
    rescue => e
      $stderr.puts "Unable to download file: #{e.message}"
-     nil
+     false
    end
    
    #
