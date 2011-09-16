@@ -107,11 +107,15 @@ module TedAPI
     # TODO
    end
    
-   def remember_download(url, type = :highres)
+   def remember_download(url)
     # TODO
    end
 
-  end
-end
+   def downloaded?(url)
+     # TODO
+   end
+
+  end # class API
+end # module TedAPI
 
 
