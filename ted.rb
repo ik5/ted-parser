@@ -29,7 +29,9 @@ rescue
   exit
 end
 
-RSS_ADDRESS = 'http://feeds.feedburner.com/tedtalks_video'
+RSS_ADDRESS      = 'http://feeds.feedburner.com/tedtalks_video'
+CONFIG_PATH      = '~/.config/tedrb/'
+DOWNLOADED_FILE  = 'downloaded.json'
 
 
 module TedAPI
@@ -163,7 +165,28 @@ module TedAPI
    #   The method does not return any value 
    #
    def remember_download(url, type = :highres)
-     
+     # First we make sure that we have the config directory ...
+     path = File.expand_path CONFIG_PATH
+     FileUtils.mkdir_p(path) unless File.directory?(path)
+
+     if File.exists?(path + DOWNLOADED_FILE)
+       json = JSON::parse(open(path + DOWNLOADED_FILE).read) 
+     else
+       json = {'download' => [], 'orig' => []}
+     end
+
+     newurl = get_url_by_type(url, type)
+     json['download'] << [{'url' => newurl, 'type' => type}]
+     json['orig']     << [{'url' => url, 'type' => type}]
+
+     open(path + DOWNLOADED_FILE, 'w') do |f|
+       f.write(json.to_json)
+     end
+
+     nil
+   rescue => e
+     $stderr.puts "Unable to remember download: #{e.message}"
+     nil
    end
 
    #
