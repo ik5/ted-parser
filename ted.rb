@@ -145,11 +145,6 @@ module TedAPI
      $stderr.puts "Unable to download file: #{e.message}"
      false
    end
-   
-   #
-   def exec(rss)
-    # TODO
-   end
   
    # Save the information about the downloaded content
    # Allowing to skip redownloading it again.
@@ -169,6 +164,11 @@ module TedAPI
    #
    def downloaded?(url)
      # TODO
+   end
+
+   #
+   def exec(rss)
+    # TODO
    end
 
   end # class API
