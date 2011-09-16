@@ -23,6 +23,7 @@ begin
   require 'rss/1.0'
   require 'rss/2.0'
   require 'open-uri'
+  require 'json'
 rescue
   $stderr.puts 'Unable to load modules. Please make sure that you have rubygems installed.'
   exit
@@ -129,6 +130,7 @@ module TedAPI
      require 'uri'
      uri   = URI::parse(newurl)
      fname = File.basename(newurl) # save the file name ...
+     FileUtils.mkdir_p(path) unless File.directory?(path) # create the path ...
 
      # let's download the content and save it to a file
      require 'net/http'
@@ -156,9 +158,12 @@ module TedAPI
    #           :desktopmp4 - The desktop version video 
    #           :desktopmp3 - The desktop version audio only
    #           :lowres     - The low resulotion video
-  #
+   #
+   # Note: 
+   #   The method does not return any value 
+   #
    def remember_download(url, type = :highres)
-    # TODO
+     
    end
 
    #
