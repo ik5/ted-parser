@@ -73,7 +73,36 @@ module TedAPI
      $stderr.puts "Unable to get titles and urls: #{e.message}"
      nil
    end  
- 
+
+   # Change url according to the type
+   #
+   # Parameters:
+   #   url  - The original url that was given   
+   #   type - The file type to download
+   #           :highres    - The high resulotion vido (default)
+   #           :desktopmp4 - The desktop version video 
+   #           :desktopmp3 - The desktop version audio only
+   #           :lowres     - The low resulotion video
+   #
+   # Return :
+   #   The new url if the type was known
+   #   empty string if type was unknown
+   #
+   def get_url_by_type(url, type)
+     # select what extension to provide 
+     types = { :desktopmp4 => '',          :desktopmp3 => '.mp3', 
+               :highres    => '-480p.mp4', :lowres     => '-light.mp4'
+             }
+
+     return '' unless types.key? type
+     ext = types[type] 
+     # set the next extention without removing the content of url
+     newurl = url                         if ext.empty?
+     newurl = url.gsub(/\.mp4$/, ext) unless ext.empty?
+     
+     newurl
+   end
+
    # download return the content of a file
    #
    # Params:
@@ -93,16 +122,8 @@ module TedAPI
    def download(url, path, type = :highres)
      # TODO - security checks for path
 
-     # select what extension to provide 
-     types = { :desktopmp4 => '',          :desktopmp3 => '.mp3', 
-               :highres    => '-480p.mp4', :lowres     => '-light.mp4'
-             }
-
-     return false unless types.key? type
-     ext = types[type] 
-     # set the next extention without removing the content of url
-     newurl = url                         if ext.empty?
-     newurl = url.gsub(/\.mp4$/, ext) unless ext.empty?
+     newurl = get_url_by_type(url, type)
+     return false if newurl.empty?
 
      # start parsing the url ...
      require 'uri'
