@@ -55,11 +55,22 @@ module TedAPI
    # get_urls parse the rss and return only the urls to be used using also their
    # titles
    #
-   #
-   #
+   # Return:
+   #   Hash with title as key and url as value
+   #   Or nil if something is wrong
    #
    def get_urls
-      
+     return nil unless @rss 
+     
+     result = {}
+
+     @rss.channel.items.each do |item| 
+       result[item.title] = item.enclosure.url
+     end
+     result
+   rescue => e
+     $stderr.puts "Unable to get titles and urls: #{e.message}"
+     nil
    end  
  
    # download return the content of a file
