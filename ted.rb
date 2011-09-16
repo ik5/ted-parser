@@ -77,7 +77,8 @@ module TedAPI
    # download return the content of a file
    #
    # Params:
-   #  url - The url to download from
+   #  url  - The url to download from
+   #  path - The path (and file name) to save the content 
    #  type - The type of file to download:
    #           :highres    - The high resulotion vido (default)
    #           :desktopmp4 - The desktop version video 
@@ -89,16 +90,11 @@ module TedAPI
    # Returns:
    #   Content of the file, or nil if error
    #
-   def download(url, type = :highres)
+   def download(url, path, type = :highres)
      
    rescue => e
      $stderr.puts "Unable to download file: #{e.message}"
      nil
-   end
-   
-   # 
-   def save(content, path)
-    # TODO
    end
    
    #
