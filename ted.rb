@@ -78,7 +78,7 @@ module TedAPI
    #
    # Params:
    #  url  - The url to download from
-   #  path - The path (and file name) to save the content 
+   #  path - The path (without file name) to save the content 
    #  type - The type of file to download:
    #           :highres    - The high resulotion vido (default)
    #           :desktopmp4 - The desktop version video 
