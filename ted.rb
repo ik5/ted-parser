@@ -91,6 +91,27 @@ module TedAPI
    #   Content of the file, or nil if error
    #
    def download(url, path, type = :highres)
+     # TODO - security checks for path
+     
+     # select what extension to provide 
+     ext = case type
+       when :desktopmp4 : ''
+       when :desktopmp3 : '.mp3'
+       when :highres    : '-480p.mp4'
+       when :lowres     : '-light.mp4'
+     end
+    
+     # set the next extention without removing the content of url
+     newurl = url                         if ext.empty?
+     newurl = url.gsub(/\.mp4$/, ext) unless ext.empty?
+
+     # start parsing the url ...
+     require 'uri'
+     uri   = URI::parse(newurl)
+     fname = File.basename(newurl) # save the file name ...
+
+     # let's download the content and save it to a file
+     require 'net/http'
      
    rescue => e
      $stderr.puts "Unable to download file: #{e.message}"
