@@ -92,16 +92,14 @@ module TedAPI
    #
    def download(url, path, type = :highres)
      # TODO - security checks for path
-     
+
      # select what extension to provide 
-     ext = case type
-       when :desktopmp4 : ''
-       when :desktopmp3 : '.mp3'
-       when :highres    : '-480p.mp4'
-       when :lowres     : '-light.mp4'
-       else               return false # can't download unknown type ...
-     end
-    
+     types = { :desktopmp4 => '',          :desktopmp3 => '.mp3', 
+               :highres    => '-480p.mp4', :lowres     => '-light.mp4'
+             }
+
+     return false unless types.key? type
+     ext = types[type] 
      # set the next extention without removing the content of url
      newurl = url                         if ext.empty?
      newurl = url.gsub(/\.mp4$/, ext) unless ext.empty?
