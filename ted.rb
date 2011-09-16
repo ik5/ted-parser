@@ -91,7 +91,10 @@ module TedAPI
    #   Content of the file, or nil if error
    #
    def download(url, type = :highres)
-     # TODO
+     
+   rescue => e
+     $stderr.puts "Unable to download file: #{e.message}"
+     nil
    end
    
    # 
