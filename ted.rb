@@ -67,6 +67,8 @@ module TedAPI
      @rss.channel.items.each do |item| 
        result[item.title] = item.enclosure.url
      end
+
+     # make sure we return result and not rss ...
      result
    rescue => e
      $stderr.puts "Unable to get titles and urls: #{e.message}"
