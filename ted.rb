@@ -53,13 +53,14 @@ module TedAPI
      nil
    end
 
-   # 
+   # get_urls parse the rss and return only the urls to be used using also their
+   # titles
    #
    #
    #
    #
    def get_urls
-    # TODO 
+      
    end  
  
    # download return the content of a file
