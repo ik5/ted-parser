@@ -129,11 +129,23 @@ module TedAPI
    def exec(rss)
     # TODO
    end
-   
-   def remember_download(url)
+  
+   # Save the information about the downloaded content
+   # Allowing to skip redownloading it again.
+   #
+   # Parameters:
+   #   url  - The url that was sent to download
+   #   type - The type of download to be made
+   #           :highres    - The high resulotion vido (default)
+   #           :desktopmp4 - The desktop version video 
+   #           :desktopmp3 - The desktop version audio only
+   #           :lowres     - The low resulotion video
+  #
+   def remember_download(url, type = :highres)
     # TODO
    end
 
+   #
    def downloaded?(url)
      # TODO
    end
