@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# This program downloads ted lectures from the RSS feed.
+# This program downloads ted talks from the RSS feed.
 # Version 0.1
 #
 #  Copyright (C) 2011  Ido Kanner
