@@ -73,7 +73,7 @@ module TedAPI
      # make sure we return result and not rss ...
      result
    rescue => e
-     $stderr.puts "Unable to get titles and urls: #{e.message}"
+     $stderr.puts "Unable to retrive urls: #{e.message}"
      nil
    end  
 
