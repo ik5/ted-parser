@@ -180,6 +180,7 @@ module TedAPI
      json['download'] << [{'url' => newurl, 'type' => type}]
      json['orig']     << [{'url' => url, 'type' => type}]
 
+     json['lastdl'] = Time.now
      open(path + DOWNLOADED_FILE, 'w') do |f|
        f.write(json.to_json)
      end
@@ -192,7 +193,7 @@ module TedAPI
 
    #
    def downloaded?(url)
-     # TODO
+     
    end
 
    #
