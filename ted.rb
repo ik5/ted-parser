@@ -132,7 +132,7 @@ module TedAPI
      require 'uri'
      uri   = URI::parse(newurl)
      fname = File.basename(newurl) # save the file name ...
-     FileUtils.mkdir_p(path) unless File.directory?(path) # create the path ...
+     FileUtils.mkdir_p(path) unless File.exist?(path) # create the path ...
 
      # let's download the content and save it to a file
      require 'net/http'
@@ -168,7 +168,7 @@ module TedAPI
      # First we make sure that we have the config directory ...
      # TODO: Add security checks for path and file
      path = File.expand_path CONFIG_PATH
-     FileUtils.mkdir_p(path) unless File.directory?(path)
+     FileUtils.mkdir_p(path) unless File.exist?(path)
 
      if File.exists?(path + DOWNLOADED_FILE)
        json = JSON::parse(open(path + DOWNLOADED_FILE).read) 
