@@ -206,11 +206,14 @@ module TedAPI
    #   false if the url and type was not found
    #
    def downloaded?(url, type = :highres)
-     
+    # TODO 
    end
 
+   # This method set everything in motion
+   # It downloading the RSS, parsing it, saving the videos/audios to a directory
+   # and store the information to json file.
    #
-   def exec(rss)
+   def exec
     # TODO
    end
 
