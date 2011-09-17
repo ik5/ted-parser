@@ -35,7 +35,7 @@ DOWNLOADED_FILE  = 'downloaded.json'
 
 
 module TedAPI
-  class API
+  class ParserAPI
    def initialize(address = RSS_ADDRESS)
      @address = address
    end 
@@ -209,7 +209,7 @@ module TedAPI
     # TODO 
    end
 
-  end # class API
+  end # class ParserAPI
 end # module TedAPI
 
 
