@@ -209,14 +209,6 @@ module TedAPI
     # TODO 
    end
 
-   # This method set everything in motion
-   # It downloading the RSS, parsing it, saving the videos/audios to a directory
-   # and store the information to json file.
-   #
-   def exec
-    # TODO
-   end
-
   end # class API
 end # module TedAPI
 
