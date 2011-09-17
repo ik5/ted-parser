@@ -191,8 +191,21 @@ module TedAPI
      nil
    end
 
+   # Check to see if the given url and type exists
    #
-   def downloaded?(url)
+   # Parameters:
+   #   url  - The url that was sent to download
+   #   type - The type of download to be made
+   #           :highres    - The high resulotion vido (default)
+   #           :desktopmp4 - The desktop version video 
+   #           :desktopmp3 - The desktop version audio only
+   #           :lowres     - The low resulotion video
+   #
+   # Return:
+   #   true if the url and type was found
+   #   false if the url and type was not found
+   #
+   def downloaded?(url, type = :highres)
      
    end
 
