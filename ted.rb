@@ -206,7 +206,17 @@ module TedAPI
    #   false if the url and type was not found
    #
    def downloaded?(url, type = :highres)
-    # TODO 
+     # Check to see if the download json file exists 
+     fdownload = File.expand_path(CONFIG_PATH) + DOWNLOADED_FILE
+     return false unless File.exists? fdownload
+     
+     newurl = get_url_by_type(url, type)
+     json = JSON::parse(open(fdownload).read) 
+
+     json['download'].include?({'url' => newurl, 'type' => type})
+   rescue => e
+     $stderr.puts "Unable to read downloaded file: #{e.message}"
+     false
    end
 
   end # class ParserAPI
