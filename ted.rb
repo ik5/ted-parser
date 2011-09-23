@@ -20,10 +20,20 @@
 
 begin
   require 'rubygems'
+  require 'optparse'
   require 'ted_api'
 rescue => e
   $stderr.puts 'Unable to load modules. Please make sure that you have rubygems installed.'
   exit
 end
 
+# handle crashes and stuff needed to be done only when exiting
+at_exit do
+  #handle crashes - catch uncought/handled exception.
+  if $! 
+    $stderr.puts "Uncought/handled exception: #{$!.message}"
+    $stderr.puts "Backtrace of the exception: #{$!.backtrace}"
+    puts 'Unclean exit.'
+  end
+end
 
