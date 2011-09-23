@@ -27,7 +27,7 @@ begin
 rescue LoadError => e
   $stderr.puts 'Unable to load modules. Please make sure that you have rubygems installed.'
   $stderr.puts "Exception: #{e.message}"
-  $stderr.puts "Exception vt: #{e.backtrace}"
+  $stderr.puts "Exception vt: #{e.backtrace.join("\n")}"
   exit
 end
 

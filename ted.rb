@@ -25,7 +25,7 @@ begin
 rescue LoadError => e
   $stderr.puts 'Unable to load modules. Please make sure that you have rubygems installed.'
   $stderr.puts "Exception: #{e.message}"
-  $stderr.puts "Exception vt: #{e.backtrace}"
+  $stderr.puts "Exception bt: #{e.backtrace.join("\n")}"
   exit
 end
 
@@ -36,7 +36,7 @@ at_exit do
   #handle crashes - catch uncaught/handled exception.
   if $! 
     $stderr.puts "Uncought/handled exception: #{$!.message}"
-    $stderr.puts "Backtrace of the exception: #{$!.backtrace}"
+    $stderr.puts "Backtrace of the exception: #{$!.backtrace.join("\n")}"
     puts 'Unclean exit.'
   end
 end
