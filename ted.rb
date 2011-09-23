@@ -77,7 +77,14 @@ $cli_options[:force] ||= false                                   # do not force 
 $cli_options[:debug] ||= false                                   # do not debug things
 
 $debug = $cli_options[:debug]
-puts $cli_options.inspect if $debug
+puts "Given Parameter values: #{$cli_options.inspect}" if $debug
+
+
+
+
+
+
+
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do
