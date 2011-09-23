@@ -61,12 +61,22 @@ optparse = OptionParser.new do|opts|
     $cli_options[:path] = path
   end
 
-  opts.on '--force', 'Force download file even if already downloaded/exits.' do
+  opts.on '--force', TrueClass, 'Force download file even if already downloaded/exits.' do
     $cli_options[:force] = true
+  end
+
+  opts.on '--debug', TrueClass, 'Display debug information.' do
+    $cli_options[:debug] = true
   end
 end.parse!
 
+# lets make sure we have values to use
+$cli_options[:rss]   ||= RSS_ADDRESS                             # default address
+$cli_options[:path]  ||= File.expand_path File.dirname(__FILE__) # current location
+$cli_options[:force] ||= false                                   # do not force download
+$cli_options[:debug] ||= false                                   # do not debug things
 
+puts $cli_options.inspect
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do
