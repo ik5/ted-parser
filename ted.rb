@@ -60,6 +60,10 @@ optparse = OptionParser.new do|opts|
   opts.on '-s', '--save PATH' , 'Set the path to save things at' do |path|
     $cli_options[:path] = path
   end
+
+  opts.on '--force', 'Force download file even if already downloaded/exits.' do
+    $cli_options[:force] = true
+  end
 end.parse!
 
 # handle crashes and stuff needed to be done only when exiting
