@@ -31,7 +31,22 @@ rescue LoadError => e
   exit
 end
 
+TED_VERSION = '0.1'
+# Lets save the options here ...
+$cli_options = {}
 
+optparse = OptionParser.new do|opts|
+  #opts.banner = 'Usage: ted.rb [options] ...'
+  opts.on '-h', '-?', '--help', 'Display this help screen' do
+    puts opts
+    exit
+  end
+
+  opts.on '--version', 'Display current version and exit.' do
+   puts "ted.rb v#{TED_VERSION}"
+   exit
+  end
+end.parse!
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do
