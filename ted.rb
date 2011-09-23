@@ -53,11 +53,11 @@ optparse = OptionParser.new do|opts|
    exit
   end
 
-  opts.on '-r', '--rss ADDRESS', 'Set different RSS address' do |address|
+  opts.on '-r ADDRESS', '--rss ADDRESS', 'Set different RSS address' do |address|
     $cli_options[:rss] = address
   end
 
-  opts.on '-s', '--save PATH' , 'Set the path to save things at' do |path|
+  opts.on '-s PATH', '--save PATH' , 'Set the path to save things at' do |path|
     $cli_options[:path] = path
   end
 
@@ -65,6 +65,8 @@ optparse = OptionParser.new do|opts|
     $cli_options[:force] = true
   end
 end.parse!
+
+
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do
