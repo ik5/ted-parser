@@ -29,7 +29,7 @@ end
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do
-  #handle crashes - catch uncought/handled exception.
+  #handle crashes - catch uncaught/handled exception.
   if $! 
     $stderr.puts "Uncought/handled exception: #{$!.message}"
     $stderr.puts "Backtrace of the exception: #{$!.backtrace}"
