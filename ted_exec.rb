@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
-# This program downloads ted talks from the RSS feed.
-# Version 0.1
+# This module puts everything together 
 #
 #  Copyright (C) 2011  Ido Kanner
 #
