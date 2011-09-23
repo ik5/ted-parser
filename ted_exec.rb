@@ -24,6 +24,6 @@ module TedAPI
   class TedExec
      
   end # class TedExec
-end TedAPI
+end # TedAPI
 
 
