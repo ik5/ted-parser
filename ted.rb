@@ -52,7 +52,11 @@ optparse = OptionParser.new do|opts|
    puts "ted.rb v#{TED_VERSION}"
    exit
   end
-end.parse!
+
+  opts.on '-r', '--rss ADDRESS', 'Set different RSS address', do |address|
+    $cli_options[:rss] = address
+  end
+end.parse
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do
