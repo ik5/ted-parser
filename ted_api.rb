@@ -17,18 +17,10 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-begin
-  require 'rubygems'
-  require 'rss/1.0'
-  require 'rss/2.0'
-  require 'open-uri'
-  require 'json'
-rescue LoadError => e
-  $stderr.puts 'Unable to load modules. Please make sure that you have rubygems installed.'
-  $stderr.puts "Exception: #{e.message}"
-  $stderr.puts "Exception vt: #{e.backtrace.join("\n")}"
-  exit
-end
+require 'rss/1.0'
+require 'rss/2.0'
+require 'open-uri'
+require 'json'
 
 RSS_ADDRESS      = 'http://feeds.feedburner.com/tedtalks_video'
 CONFIG_PATH      = '~/.config/tedrb/'
