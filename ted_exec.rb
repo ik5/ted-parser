@@ -21,6 +21,9 @@
 require 'ted_api'
 
 module TedAPI
+  class TedExec
+     
+  end # class TedExec
+end TedAPI
 
-end
 
