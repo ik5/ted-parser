@@ -19,6 +19,8 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 begin
+  # try to add the file path as well to load ted_api
+  $: << File.dirname(__FILE__) unless $:.include? File.dirname(__FILE__)
   require 'ted_api'
   require 'rubygems'
   require 'optparse'
