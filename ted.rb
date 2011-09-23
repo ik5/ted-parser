@@ -43,7 +43,7 @@ puts "Copyright (C) 2011 Ido Kanner.",
 
 optparse = OptionParser.new do|opts|
   #opts.banner = 'Usage: ted.rb [options] ...'
-  opts.on '-h', '-?', '--help', 'Display this help screen' do
+  opts.on '-h', '--help', 'Display this help screen' do
     puts opts
     exit
   end
@@ -53,10 +53,14 @@ optparse = OptionParser.new do|opts|
    exit
   end
 
-  opts.on '-r', '--rss ADDRESS', 'Set different RSS address', do |address|
+  opts.on '-r', '--rss ADDRESS', 'Set different RSS address' do |address|
     $cli_options[:rss] = address
   end
-end.parse
+
+  opts.on '-s', '--save PATH' , 'Set the path to save things at' do |path|
+    $cli_options[:path] = path
+  end
+end.parse!
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do
