@@ -33,7 +33,11 @@ end
 
 TED_VERSION = '0.1'
 # Lets save the options here ...
-$cli_options = {}
+$cli_options = { :rss   => RSS_ADDRESS, 
+                 :path  => File.expand_path(File.dirname(__FILE__)),
+                 :force => false,
+                 :debug => false
+               }
 
 puts "ted.rb v#{TED_VERSION}.\n"
 puts "Copyright (C) 2011 Ido Kanner.",
@@ -69,12 +73,6 @@ optparse = OptionParser.new do|opts|
     $cli_options[:debug] = true
   end
 end.parse!
-
-# lets make sure we have values to use
-$cli_options[:rss]   ||= RSS_ADDRESS                             # default address
-$cli_options[:path]  ||= File.expand_path File.dirname(__FILE__) # current location
-$cli_options[:force] ||= false                                   # do not force download
-$cli_options[:debug] ||= false                                   # do not debug things
 
 $debug = $cli_options[:debug]
 puts "Given Parameter values: #{$cli_options.inspect}" if $debug
