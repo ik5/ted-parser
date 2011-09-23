@@ -19,13 +19,17 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 begin
+  require 'ted_api'
   require 'rubygems'
   require 'optparse'
-  require 'ted_api'
-rescue => e
+rescue LoadError => e
   $stderr.puts 'Unable to load modules. Please make sure that you have rubygems installed.'
+  $stderr.puts "Exception: #{e.message}"
+  $stderr.puts "Exception vt: #{e.backtrace}"
   exit
 end
+
+
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do

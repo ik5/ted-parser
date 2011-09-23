@@ -24,8 +24,10 @@ begin
   require 'rss/2.0'
   require 'open-uri'
   require 'json'
-rescue
+rescue LoadError => e
   $stderr.puts 'Unable to load modules. Please make sure that you have rubygems installed.'
+  $stderr.puts "Exception: #{e.message}"
+  $stderr.puts "Exception vt: #{e.backtrace}"
   exit
 end
 
