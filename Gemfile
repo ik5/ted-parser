@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem 'json'
-gem 'nokogiri'
+gem 'activesupport'
 
 group :testing do
   gem 'cucumber'
