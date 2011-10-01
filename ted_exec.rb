@@ -22,7 +22,13 @@ require 'ted_api'
 
 module TedAPI
   class TedExec
-     
+     def initialize(options)
+       @options = options
+     end
+
+     def exec
+
+     end
   end # class TedExec
 end # TedAPI
 
