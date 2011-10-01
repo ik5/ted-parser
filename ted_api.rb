@@ -32,6 +32,7 @@ module TedAPI
   class ParserAPI
    def initialize(address = RSS_ADDRESS)
      @address = address
+     parsed_xml
    end 
    
    # parsed_xml return parsed RSS content into ruby structure
