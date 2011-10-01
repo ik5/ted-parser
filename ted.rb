@@ -77,12 +77,9 @@ end.parse!
 $debug = $cli_options[:debug]
 puts "Given Parameter values: #{$cli_options.inspect}" if $debug
 
-
-
-
-
-
-
+# keeping the namespace of TedAPI, do not include it, I wish to keep full namespaces 
+ted = TedAPI::TedExec.new($cli_options)
+ted.exec
 
 # handle crashes and stuff needed to be done only when exiting
 at_exit do
