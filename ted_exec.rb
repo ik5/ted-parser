@@ -19,11 +19,15 @@
 
 
 require 'ted_api'
+require 'active_support/core_ext/module/attribute_accessors.rb' # activesupport mattr_*
 
 module TedAPI
+  mattr_accessor :debug
+
   class TedExec
      def initialize(options)
        @options = options
+       TedAPI::debug = @options[:debug]
      end
 
      def exec
