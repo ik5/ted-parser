@@ -26,12 +26,17 @@ module TedAPI
 
   class TedExec
      def initialize(options)
-       @options = options
+       @options      = options
        TedAPI::debug = @options[:debug]
+       @rss_parser   = TedAPI::ParserAPI.new(options[:rss])
      end
 
      def exec
-
+      urls = @rss_parser.get_urls 
+      
+      urls.each do |url|
+        
+      end
      end
   end # class TedExec
 end # TedAPI
