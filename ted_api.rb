@@ -28,6 +28,7 @@ DOWNLOADED_FILE  = 'downloaded.json'
 
 
 module TedAPI
+
   class ParserAPI
    def initialize(address = RSS_ADDRESS)
      @address = address
@@ -42,10 +43,13 @@ module TedAPI
    #  The parsed rss or nil, if exception was raised
    #
    def parsed_xml
+     puts 'At parsed_xml' if TedAPI::debug
      @rss = RSS::Parser.parse(open(@address), false)
    rescue => e
      $stderr.puts "Unable to parse RSS: #{e.message}"
      nil
+   ensure 
+     puts 'done parsed_xml' if TedAPI::debug
    end
 
    # get_urls parse the rss and return only the urls to be used 
@@ -55,11 +59,13 @@ module TedAPI
    #   Or nil if something is wrong
    #
    def get_urls
+     puts 'at get_urls' if TedAPI::debug
      return nil unless @rss 
      
      result = []
 
      @rss.channel.items.each do |item| 
+       puts "saving [#{item}] into array" if TedAPI::debug
        result << item.enclosure.url
      end
 
@@ -68,6 +74,8 @@ module TedAPI
    rescue => e
      $stderr.puts "Unable to retrive urls: #{e.message}"
      nil
+   ensure 
+     puts 'Done get_urls' if TedAPI::debug
    end  
 
    # Change url according to the type
@@ -85,18 +93,23 @@ module TedAPI
    #   empty string if type was unknown
    #
    def get_url_by_type(url, type)
+     puts 'at get_url_by_type' if TedAPI::debug
      # select what extension to provide 
      types = { :desktopmp4 => '',          :desktopmp3 => '.mp3', 
                :highres    => '-480p.mp4', :lowres     => '-light.mp4'
              }
 
+     puts "url : [#{url}], type : [#{type}]" if TedAPI::debug
      return '' unless types.key? type
      ext = types[type] 
      # set the next extention without removing the content of url
      newurl = url                         if ext.empty?
      newurl = url.gsub(/\.mp4$/, ext) unless ext.empty?
+     puts "newurl : [#{newurl}]" if TedAPI::debug
      
      newurl
+   ensure
+     puts 'Done get_url_by_type' if TedAPI::debug
    end
 
    # download return the content of a file
@@ -116,6 +129,8 @@ module TedAPI
    #   true if successful, or false if not
    #
    def download(url, path, type = :highres)
+     puts 'at download' if TedAPI::debug
+     puts "url [#{url}], path [#{path}], type [#{type}]" if TedAPI::debug
      # TODO - security checks for path
 
      newurl = get_url_by_type(url, type)
@@ -125,6 +140,7 @@ module TedAPI
      require 'uri'
      uri   = URI::parse(newurl)
      fname = File.basename(newurl) # save the file name ...
+     puts "uri: [#{uri.inspect}], fname : [#{fname}]" if TedAPI::debug
      FileUtils.mkdir_p(path) unless File.exist?(path) # create the path ...
 
      # let's download the content and save it to a file
@@ -136,11 +152,15 @@ module TedAPI
        end
      end
 
+     puts "answer : [#{answer}], file exists ? [#{File.exists?(path + fname)}]" if TedAPI::debug
+
      # should return true or false
      (answer == 200) && (File.exists?(path + fname))
    rescue => e
      $stderr.puts "Unable to download file: #{e.message}"
      false
+   ensure
+     puts 'Done download' if TedAPI::debug
    end
   
    # Save the information about the downloaded content
@@ -158,20 +178,26 @@ module TedAPI
    #   The method does not return any value 
    #
    def remember_download(url, type = :highres)
+     puts 'at remember_download' if TedAPI::debug
+     puts "url: [#{url}], type: [#{type}]" if TedAPI::debug
      # First we make sure that we have the config directory ...
      # TODO: Add security checks for path and file
      path = File.expand_path CONFIG_PATH
      FileUtils.mkdir_p(path) unless File.exist?(path)
 
      if File.exists?(path + DOWNLOADED_FILE)
+       puts 'Reading json file' if TedAPI::debug
        json = JSON::parse(open(path + DOWNLOADED_FILE).read) 
+       puts "json content:\n\t#{json}" if TedAPI::debug
      else
+       puts 'No json file to read' if TedAPI::debug
        json = {'download' => [], 'orig' => []}
      end
 
      newurl = get_url_by_type(url, type)
+     puts "newurl : [#{newurl}]" if TedAPI::debug
      json['download'] << [{'url' => newurl, 'type' => type}]
-     json['orig']     << [{'url' => url, 'type' => type}]
+     json['orig']     << [{'url' => url,    'type' => type}]
 
      json['lastdl'] = Time.now
      open(path + DOWNLOADED_FILE, 'w') do |f|
@@ -182,6 +208,8 @@ module TedAPI
    rescue => e
      $stderr.puts "Unable to remember download: #{e.message}"
      nil
+   ensure
+     puts 'done remember_download' if TedAPI::debug
    end
 
    # Check to see if the given url and type exists
@@ -199,17 +227,24 @@ module TedAPI
    #   false if the url and type was not found
    #
    def downloaded?(url, type = :highres)
+     puts 'at downloaded?' if TedAPI::debug
+     puts "url : [#{url}], type : [#{type}]" if TedAPI::debug
      # Check to see if the download json file exists 
      fdownload = File.expand_path(CONFIG_PATH) + DOWNLOADED_FILE
+     puts "fdownload [#{fdownload}]" if TedAPI::debug
      return false unless File.exists? fdownload
      
      newurl = get_url_by_type(url, type)
-     json = JSON::parse(open(fdownload).read) 
+     puts "newurl : [#{newurl}]" if TedAPI::debug
+     json = JSON::parse(open(fdownload).read)
+     puts "json :\n\t#{json}" if TedAPI::debug
 
      json['download'].include?({'url' => newurl, 'type' => type})
    rescue => e
      $stderr.puts "Unable to read downloaded file: #{e.message}"
      false
+   ensure
+     puts 'done downloaded?' if TedAPI::debug
    end
 
   end # class ParserAPI
